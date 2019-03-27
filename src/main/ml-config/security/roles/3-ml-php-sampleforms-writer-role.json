@@ -1,0 +1,14 @@
+{
+  "role-name" : "ml-php-sampleforms-writer",
+  "description" : "Can read and write documents",
+  "role" : [ "rest-writer", "ml-php-sampleforms-reader" ],
+  "privilege" : [ {
+    "privilege-name" : "any-uri",
+    "action" : "http://marklogic.com/xdmp/privileges/any-uri",
+    "kind" : "execute"
+  }, {
+    "privilege-name" : "unprotected-collections",
+    "action" : "http://marklogic.com/xdmp/privileges/unprotected-collections",
+    "kind" : "execute"
+  } ]
+}
