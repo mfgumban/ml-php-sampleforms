@@ -28,3 +28,7 @@ Route::post('/expense/step1', 'ExpenseController@postStep1')->middleware('guest'
 Route::get('/expense/step2', 'ExpenseController@getStep2')->middleware('guest');
 Route::post('/expense/step2', 'ExpenseController@postStep2')->middleware('guest');
 Route::get('/expense/done', 'ExpenseController@done')->middleware('guest');
+
+Route::get('/expense/admin', 'ExpenseAdminController@index')->name('expense-admin');
+Route::post('/expense/approve', 'ExpenseAdminController@approve');
+Route::post('/expense/reject', 'ExpenseAdminController@reject');

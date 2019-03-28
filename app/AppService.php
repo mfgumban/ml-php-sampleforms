@@ -99,4 +99,55 @@ class AppService
       $this->handleException($e);
     }
   }
+
+  public function searchExpenses($qtext) {
+    try {
+      $client = new Client();
+      $response = $client->get($this->getRestUrl('expense'), [
+        'auth' => $this->getAuth(),
+        'query' => [
+          'rs:qtext' => $qtext
+        ]
+      ]);
+
+      return json_decode($response->getBody(), true);
+    }
+    catch(RequestException $e) {
+      $this->handleException($e);
+    }
+  }
+
+  public function approveExpense($expenseId) {
+    try {
+      $client = new Client();
+      $response = $client->put($this->getRestUrl('expenseApprove'), [
+        'auth' => $this->getAuth(),
+        'query' => [
+          'rs:expenseId' => $expenseId
+        ]
+      ]);
+
+      return $response->getStatusCode() == 204;
+    }
+    catch(RequestException $e) {
+      $this->handleException($e);
+    }
+  }
+
+  public function rejectExpense($expenseId) {
+    try {
+      $client = new Client();
+      $response = $client->put($this->getRestUrl('expenseReject'), [
+        'auth' => $this->getAuth(),
+        'query' => [
+          'rs:expenseId' => $expenseId
+        ]
+      ]);
+
+      return $response->getStatusCode() == 204;
+    }
+    catch(RequestException $e) {
+      $this->handleException($e);
+    }
+  }
 }
