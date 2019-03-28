@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\AppService;
+use App\FeedbackModel;
 
 class FeedbackController extends Controller
 {
@@ -16,15 +18,26 @@ class FeedbackController extends Controller
         return view('feedback');
     }
 
+    public function done()
+    {
+        return view('feedback-done');
+    }
+
     public function submit(Request $request)
     {
+        $model = new FeedbackModel();
+        $model->fromRequest($request);
+
         // validate content
 
         // save to db
-
-        var_dump($request->input('category'));
-        var_dump($request->input('feedback'));
-        var_dump($request->input('email'));
-        var_dump($request->input('anonymous'));
+        $service = new AppService();
+        $success = $service->submitFeedback($model);
+        if ($success) {
+            return redirect()->action('FeedbackController@done');
+        }
+        else {
+            return redirect()->view('oops');
+        }
     }
 }

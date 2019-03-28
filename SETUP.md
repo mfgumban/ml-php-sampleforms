@@ -53,4 +53,4 @@ plugins { id "com.marklogic.ml-gradle" version "3.12.0" }
 ### Initial Coding
 
 1. Run `php artisan make:auth` for authentication scaffolding.  Best to do this early as it modifies code, even if there are no plans to configure authentication yet.
-2. To prepare the project for source control (Git), open `.gitignore` file and add a line for `.gradle`.
+2. To prepare the project for source control (Git), open `.gitignore` file and add a line for `.gradle` and `/build`.

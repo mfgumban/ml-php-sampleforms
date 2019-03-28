@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/feedback', 'FeedbackController@index')->name('feedback')->middleware('guest');
 Route::post('/feedback', 'FeedbackController@submit');
+Route::get('/feedback-done', 'FeedbackController@done')->name('feedback-done')->middleware('guest');

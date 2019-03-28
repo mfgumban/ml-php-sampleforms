@@ -228,4 +228,9 @@ return [
 
     ],
 
+    // MarkLogic database configuration
+    'ml_host' => env('APP_ML_HOST', 'http://localhost'),
+    'ml_port' => env('APP_ML_PORT', '9020'),
+    'ml_username' => env('APP_ML_USERNAME', 'ml-php-sampleforms-admin'),
+    'ml_password' => env('APP_ML_PASSWORD', 'ml-php-sampleforms-admin'),
 ];
