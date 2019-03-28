@@ -110,7 +110,9 @@ class AppService
         ]
       ]);
 
-      return json_decode($response->getBody(), true);
+      $jsonResponse = json_decode($response->getBody(), true);
+      $jsonResponse['results'] = $jsonResponse['results'] == null ? [] : $jsonResponse['results'];
+      return $jsonResponse;
     }
     catch(RequestException $e) {
       $this->handleException($e);
@@ -145,6 +147,26 @@ class AppService
       ]);
 
       return $response->getStatusCode() == 204;
+    }
+    catch(RequestException $e) {
+      $this->handleException($e);
+    }
+  }
+
+  public function getExpenseReceipt($expenseId) {
+    try {
+      $client = new Client();
+      $response = $client->get($this->getRestUrl('expenseReceipt'), [
+        'auth' => $this->getAuth(),
+        'query' => [
+          'rs:expenseId' => $expenseId
+        ]
+      ]);
+
+      return [
+        'content-type' => $response->getHeader('Content-Type'),
+        'content' => $response->getBody()
+      ];
     }
     catch(RequestException $e) {
       $this->handleException($e);

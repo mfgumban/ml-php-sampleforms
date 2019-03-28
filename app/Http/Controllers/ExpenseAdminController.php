@@ -12,11 +12,21 @@ class ExpenseAdminController extends Controller
         $this->middleware('guest');
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $qtext = $request->input('qtext');
+        $qtext = $qtext == null ? '' : $qtext;
         $service = new AppService();
-        $search = $service->searchExpenses(''); // get all
+        $search = $service->searchExpenses($qtext);
         return view('expense.admin')->with('search', $search);
+    }
+
+    public function receipt($expenseId) {
+        $service = new AppService();
+        $result = $service->getExpenseReceipt($expenseId);
+
+        return response($result['content'])
+            ->header('Content-Type', $result['content-type']);
     }
 
     public function approve(Request $request) {

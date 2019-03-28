@@ -32,3 +32,4 @@ Route::get('/expense/done', 'ExpenseController@done')->middleware('guest');
 Route::get('/expense/admin', 'ExpenseAdminController@index')->name('expense-admin');
 Route::post('/expense/approve', 'ExpenseAdminController@approve');
 Route::post('/expense/reject', 'ExpenseAdminController@reject');
+Route::get('/expense/receipt/{expenseId}', 'ExpenseAdminController@receipt');
