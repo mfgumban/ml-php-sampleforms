@@ -67,6 +67,32 @@ class AppService
         'json' => $model->getAttributes()
       ]);
 
+      $jsonResponse = json_decode($response->getBody(), true);
+      return $jsonResponse["expenseId"];
+    }
+    catch(RequestException $e) {
+      $this->handleException($e);
+    }
+  }
+
+  public function addExpenseReceipt($expenseId, $file) {
+    try {
+      $filename = time() . '.' . $file->extension();
+      $uri = '/expense/' . $expenseId . '/' . $filename;
+
+      $client = new Client();
+      $response = $client->put($this->getServerUrl() . 'v1/documents', [
+        'auth' => $this->getAuth(),
+        'query' => [
+          'uri' => $uri,
+          'collection' => 'expenseReceipt'
+        ],
+        'headers' => [
+          'Content-type' => $file->getMimeType()
+        ],
+        'body' => fopen($file->path(), 'r')
+      ]);
+
       return $response->getStatusCode() == 201;
     }
     catch(RequestException $e) {

@@ -20,9 +20,15 @@ class ExpenseController extends Controller
         return view('expense.step1')->with('expenseTypes', $expenseTypes);
     }
 
-    public function getStep2()
+    public function getStep2(Request $request)
     {
-        return view('expense.step2');
+        $expenseId = $request->session()->get('expenseId');
+        return view('expense.step2')->with('expenseId', $expenseId);
+    }
+
+    public function done()
+    {
+        return view('expense.done');
     }
 
     public function postStep1(Request $request)
@@ -39,9 +45,9 @@ class ExpenseController extends Controller
 
         // save to db
         $service = new AppService();
-        $success = $service->addExpense($model);
-        if ($success) {
-            return redirect()->action('ExpenseController@getStep2');
+        $expenseId = $service->addExpense($model);
+        if ($expenseId) {
+            return redirect()->action('ExpenseController@getStep2')->with('expenseId', $expenseId);
         }
         else {
             return redirect()->view('oops');
@@ -50,6 +56,17 @@ class ExpenseController extends Controller
 
     public function postStep2(Request $request)
     {
-        
+        $expenseId = $request->input('expenseId');
+        $fileToUpload = $request->file('fileToUpload');
+
+        // save to db
+        $service = new AppService();
+        $success = $service->addExpenseReceipt($expenseId, $fileToUpload);
+        if ($success) {
+            return redirect()->action('ExpenseController@done');
+        }
+        else {
+            return redirect()->view('oops');
+        }
     }
 }

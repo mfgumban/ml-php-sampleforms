@@ -20,6 +20,7 @@ function put(context, params, input) {
           "reason": source.reason || null,
           "submittedBy": source.name,
           "submittedOn": timestamp.toObject(), // save timestamp as something JS can parse
+          "status": "Open"
         }
       },
       // save a "raw" copy of the input
@@ -28,12 +29,16 @@ function put(context, params, input) {
   };
 
   // add to database
-  xdmp.documentInsert("/expense/" + sem.uuidString() + ".json", doc, {
+  var expenseId = sem.uuidString();
+  xdmp.documentInsert("/expense/" + expenseId + ".json", doc, {
     collections: ["expense"]
   });
 
   // return response
   context.outputStatus = [201, "Created"];
+  return {
+    "expenseId": expenseId
+  };
 }
 
 exports.PUT = put;
