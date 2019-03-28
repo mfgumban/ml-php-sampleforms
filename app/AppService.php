@@ -43,4 +43,34 @@ class AppService
       $this->handleException($e);
     }
   }
+
+  public function getExpenseTypes() {
+    try {
+      $client = new Client();
+      $response = $client->get($this->getRestUrl('expenseTypes'), [
+        'auth' => $this->getAuth()
+      ]);
+
+      $jsonDoc = json_decode($response->getBody(), true);
+      return $jsonDoc["expenseTypes"];
+    }
+    catch(RequestException $e) {
+      $this->handleException($e);
+    }
+  }
+
+  public function addExpense(ExpenseModel $model) {
+    try {
+      $client = new Client();
+      $response = $client->put($this->getRestUrl('expense'), [
+        'auth' => $this->getAuth(),
+        'json' => $model->getAttributes()
+      ]);
+
+      return $response->getStatusCode() == 201;
+    }
+    catch(RequestException $e) {
+      $this->handleException($e);
+    }
+  }
 }

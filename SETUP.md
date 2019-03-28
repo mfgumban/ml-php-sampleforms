@@ -29,7 +29,7 @@ Setup Gradle for automating our MarkLogic configuration and deployment.  These s
 3. Open `build.gradle` in a text editor and enter the following line:
 
 ```gradle
-plugins { id "com.marklogic.ml-gradle" version "3.12.0" }
+plugins { id "com.marklogic.ml-gradle" version "3.13.0" }
 ```
 
 4. Run `gradle mlNewProject`.
@@ -53,4 +53,4 @@ plugins { id "com.marklogic.ml-gradle" version "3.12.0" }
 ### Initial Coding
 
 1. Run `php artisan make:auth` for authentication scaffolding.  Best to do this early as it modifies code, even if there are no plans to configure authentication yet.
-2. To prepare the project for source control (Git), open `.gitignore` file and add a line for `.gradle` and `/build`.
+2. To prepare the project for source control (Git), open `.gitignore` file and add a line for `.gradle` and `build`.

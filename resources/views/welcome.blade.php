@@ -86,6 +86,7 @@
 
                 <div class="links">
                     <a href="{{ route('feedback') }}">Feedback</a>
+                    <a href="{{ route('postExpense') }}">Expense</a>
                 </div>
             </div>
         </div>

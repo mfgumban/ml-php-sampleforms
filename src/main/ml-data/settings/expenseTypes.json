@@ -1,0 +1,10 @@
+{
+  "expenseTypes": [
+    "Car/Gasoline",
+    "Air Travel",
+    "Entertainment",
+    "Taxi/Service",
+    "Parking/Tolls",
+    "Meals"
+  ]
+}
